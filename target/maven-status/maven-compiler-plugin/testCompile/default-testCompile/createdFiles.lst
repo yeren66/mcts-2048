@@ -1,0 +1,17 @@
+dk/ahle/thomas/mcts2048/test/AnswerTest$ConstantsTests.class
+dk/ahle/thomas/mcts2048/test/MeasureTest.class
+dk/ahle/thomas/mcts2048/test/ExampleTest$MoveTests.class
+dk/ahle/thomas/mcts2048/test/AnswerTest$BasicTests.class
+dk/ahle/thomas/mcts2048/test/AnswerTest$EqualsHashCodeTests.class
+dk/ahle/thomas/mcts2048/test/AnswerTest$ToStringPrintTests.class
+dk/ahle/thomas/mcts2048/test/AnswerTest$EdgeCaseTests.class
+dk/ahle/thomas/mcts2048/test/AnswerTest$CopyTests.class
+dk/ahle/thomas/mcts2048/test/AnswerTest$MoveTests.class
+dk/ahle/thomas/mcts2048/test/BoardTest.class
+dk/ahle/thomas/mcts2048/test/AnswerTest$GameStateTests.class
+dk/ahle/thomas/mcts2048/test/TestUtils.class
+dk/ahle/thomas/mcts2048/test/ExampleTest.class
+dk/ahle/thomas/mcts2048/test/AnswerTest$SpawnTests.class
+dk/ahle/thomas/mcts2048/test/AnswerTest$CanDirectionTests.class
+dk/ahle/thomas/mcts2048/test/AnswerTest.class
+dk/ahle/thomas/mcts2048/test/BitBoardTest.class

@@ -4,11 +4,69 @@ mcts-2048
 A Monte Carlo Tree Search AI for the game 2048.
 Using bitboards and customizable strategies.
 
+### 📚 快速开始
+
+#### 编译和运行
+
+```bash
+# 克隆项目
+git clone git@github.com:thomasahle/mcts-2048.git
+cd mcts-2048
+
+# 编译项目
+mvn compile
+
+# 运行程序
+mvn exec:java -Dexec.mainClass="dk.ahle.thomas.mcts2048.Main"
+
+# 或者打包后运行
+mvn package
+java -jar target/mcts-2048-1.0.0.jar
+```
+
+#### 运行测试
+
+```bash
+# 运行所有测试
+mvn test
+
+# 生成代码覆盖率报告
+mvn test jacoco:report
+open target/site/jacoco/index.html
+
+# 运行变异测试
+mvn org.pitest:pitest-maven:mutationCoverage
+open target/pit-reports/*/index.html
+```
+
+### 📖 教学文档
+
+- **[TESTING_GUIDE.md](TESTING_GUIDE.md)** - 单元测试教学完整教程
+- **[MAVEN_COMMANDS.md](MAVEN_COMMANDS.md)** - Maven命令速查表
+
+### 🚀 快捷命令
+
+```bash
+# 使用提供的快捷脚本
+chmod +x maven-commands.sh
+
+./maven-commands.sh compile   # 编译
+./maven-commands.sh test      # 测试
+./maven-commands.sh coverage  # 覆盖率
+./maven-commands.sh mutation  # 变异测试
+./maven-commands.sh reports   # 打开报告
+```
+
+---
+
+## 原始使用说明
+
+### 传统编译方式（已过时，建议使用Maven）
+
 Compile:
 
-    git clone git@github.com:thomasahle/mcts-2048.git
-    cd mcts-2048/2048
-    javac -cp src/ isrc/dk/ahle/thomas/mcts2048/Main.java
+    cd 2048
+    javac -cp src/ src/dk/ahle/thomas/mcts2048/Main.java
     
 Run:
 

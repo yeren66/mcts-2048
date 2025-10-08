@@ -1,0 +1,22 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+MCTS 2048,dk.ahle.thomas.mcts2048.measure,SumMeasure,0,33,0,4,0,6,0,4,0,2
+MCTS 2048,dk.ahle.thomas.mcts2048.measure,BestMeasure,37,0,4,0,5,0,4,0,2,0
+MCTS 2048,dk.ahle.thomas.mcts2048.measure,EnsambleMeasure,56,0,2,0,10,0,4,0,3,0
+MCTS 2048,dk.ahle.thomas.mcts2048.measure,ZeroMeasure,5,0,0,0,2,0,2,0,2,0
+MCTS 2048,dk.ahle.thomas.mcts2048.measure,MonotonicityMeasure,76,0,8,0,9,0,6,0,2,0
+MCTS 2048,dk.ahle.thomas.mcts2048.measure,NegativeMeasure,12,0,0,0,4,0,2,0,2,0
+MCTS 2048,dk.ahle.thomas.mcts2048.measure,FreesMeasure,0,30,0,4,0,6,0,4,0,2
+MCTS 2048,dk.ahle.thomas.mcts2048.measure,SmoothMeasure,0,76,0,8,0,9,0,6,0,2
+MCTS 2048,dk.ahle.thomas.mcts2048,Board,2,888,1,59,1,86,1,45,0,16
+MCTS 2048,dk.ahle.thomas.mcts2048,BitBoards,149,286,21,6,30,43,18,13,7,9
+MCTS 2048,dk.ahle.thomas.mcts2048,Main,353,0,10,0,60,0,9,0,4,0
+MCTS 2048,dk.ahle.thomas.mcts2048.strategy,ChoiceLeaf,73,0,6,0,14,0,6,0,3,0
+MCTS 2048,dk.ahle.thomas.mcts2048.strategy,CyclicStrategy,58,0,6,0,13,0,5,0,2,0
+MCTS 2048,dk.ahle.thomas.mcts2048.strategy,ChoiceNode,162,0,14,0,34,0,11,0,4,0
+MCTS 2048,dk.ahle.thomas.mcts2048.strategy,SmoothStrategy,131,0,16,0,31,0,13,0,5,0
+MCTS 2048,dk.ahle.thomas.mcts2048.strategy,ExitNode,32,0,0,0,9,0,3,0,3,0
+MCTS 2048,dk.ahle.thomas.mcts2048.strategy,UCTStrategy,78,0,10,0,19,0,7,0,2,0
+MCTS 2048,dk.ahle.thomas.mcts2048.strategy,GreedyStrategy,62,0,8,0,20,0,7,0,3,0
+MCTS 2048,dk.ahle.thomas.mcts2048.strategy,RandomStrategy,88,0,10,0,20,0,9,0,4,0
+MCTS 2048,dk.ahle.thomas.mcts2048.strategy,Node,21,0,0,0,8,0,4,0,4,0
+MCTS 2048,dk.ahle.thomas.mcts2048.strategy,SpawnNode,113,0,8,0,27,0,7,0,3,0

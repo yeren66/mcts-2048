@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MCTS 2048</a> &gt; <a href="index.source.html" class="el_package">dk.ahle.thomas.mcts2048</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package dk.ahle.thomas.mcts2048;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import dk.ahle.thomas.mcts2048.measure.BestMeasure;
+import dk.ahle.thomas.mcts2048.measure.EnsambleMeasure;
+import dk.ahle.thomas.mcts2048.measure.FreesMeasure;
+import dk.ahle.thomas.mcts2048.measure.NegativeMeasure;
+import dk.ahle.thomas.mcts2048.measure.SmoothMeasure;
+import dk.ahle.thomas.mcts2048.measure.SumMeasure;
+import dk.ahle.thomas.mcts2048.strategy.CyclicStrategy;
+import dk.ahle.thomas.mcts2048.strategy.GreedyStrategy;
+import dk.ahle.thomas.mcts2048.strategy.RandomStrategy;
+import dk.ahle.thomas.mcts2048.strategy.Strategy;
+import dk.ahle.thomas.mcts2048.strategy.UCTStrategy;
+
+<span class="nc" id="L18">public class Main {</span>
+	public static void main(String[] args) {
+<span class="nc" id="L20">		test(new UCTStrategy(1000, true,</span>
+				new SumMeasure(),
+				new GreedyStrategy(new EnsambleMeasure()
+<span class="nc" id="L23">					.addMeasure(-1, new SmoothMeasure())</span>
+<span class="nc" id="L24">					.addMeasure(1, new FreesMeasure()))), 1);</span>
+<span class="nc" id="L25">	}</span>
+	
+	static void compareStrategies() {
+<span class="nc" id="L28">		test(new CyclicStrategy(Board.DOWN, Board.LEFT, Board.DOWN, Board.RIGHT), 1000);</span>
+<span class="nc" id="L29">		test(new RandomStrategy(), 1000);</span>
+<span class="nc" id="L30">		test(new RandomStrategy(.01, .24, .5, .25), 1000);</span>
+<span class="nc" id="L31">		test(new GreedyStrategy(new FreesMeasure()), 1000);</span>
+<span class="nc" id="L32">		test(new GreedyStrategy(new NegativeMeasure(new SmoothMeasure())), 1000);</span>
+<span class="nc" id="L33">		test(new GreedyStrategy(new EnsambleMeasure()</span>
+<span class="nc" id="L34">				.addMeasure(-1, new SmoothMeasure())</span>
+<span class="nc" id="L35">				.addMeasure(1, new FreesMeasure())), 1000);</span>
+<span class="nc" id="L36">		test(new UCTStrategy(100, false,</span>
+				new SumMeasure(),
+				new GreedyStrategy(new EnsambleMeasure()
+<span class="nc" id="L39">					.addMeasure(-1, new SmoothMeasure())</span>
+<span class="nc" id="L40">					.addMeasure(1, new FreesMeasure()))), 10);</span>
+<span class="nc" id="L41">		test(new UCTStrategy(1000, false,</span>
+				new SumMeasure(),
+				new GreedyStrategy(new EnsambleMeasure()
+<span class="nc" id="L44">					.addMeasure(-1, new SmoothMeasure())</span>
+<span class="nc" id="L45">					.addMeasure(1, new FreesMeasure()))), 10);</span>
+<span class="nc" id="L46">	}</span>
+
+	static void test(Strategy strat, int runs) {
+<span class="nc" id="L49">		long time = System.currentTimeMillis();</span>
+<span class="nc" id="L50">		Board board = new Board();</span>
+<span class="nc" id="L51">		board.unsafe_spawn();</span>
+<span class="nc" id="L52">		board.unsafe_spawn();</span>
+		
+<span class="nc" id="L54">		double loBest = Double.MAX_VALUE;</span>
+<span class="nc" id="L55">		double hiBest = -Double.MAX_VALUE;</span>
+<span class="nc" id="L56">		double wins = 0;</span>
+<span class="nc" id="L57">		List&lt;Double&gt; scores = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">		for (int i = 0; i &lt; runs; i++) {</span>
+<span class="nc" id="L59">			Board result = strat.play(board);</span>
+<span class="nc" id="L60">			scores.add(new SumMeasure().score(result));</span>
+<span class="nc" id="L61">			double best = new BestMeasure().score(result);</span>
+<span class="nc" id="L62">			loBest = Math.min(loBest, best);</span>
+<span class="nc" id="L63">			hiBest = Math.max(hiBest, best);</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">			wins += best &gt;= 2048 ? 1 : 0;</span>
+		}
+		
+<span class="nc" id="L67">		wins /= runs;</span>
+		
+<span class="nc" id="L69">		double moves = 0;</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">		for (double score : scores) {</span>
+<span class="nc" id="L71">			moves += score / (2*.9 + 4*.1);</span>
+<span class="nc" id="L72">		}</span>
+		
+<span class="nc" id="L74">		double avg = 0;</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">		for (double score : scores) {</span>
+<span class="nc" id="L76">			avg += score;</span>
+<span class="nc" id="L77">		}</span>
+<span class="nc" id="L78">		avg /= runs;</span>
+<span class="nc" id="L79">		double var = 0;</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">		for (double score : scores) {</span>
+<span class="nc" id="L81">			var += (score-avg)*(score-avg);</span>
+<span class="nc" id="L82">		}</span>
+<span class="nc" id="L83">		var = Math.sqrt(var/runs);</span>
+		
+<span class="nc" id="L85">		double moveTime = (System.currentTimeMillis() - time)/moves;</span>
+		
+<span class="nc" id="L87">		System.out.print(strat.getClass().getSimpleName() + &quot; &quot;);</span>
+<span class="nc" id="L88">		System.out.print(&quot;Win%: &quot; + wins + &quot;, &quot;);</span>
+<span class="nc" id="L89">		System.out.print(&quot;Avg: &quot; + avg + &quot;, &quot;);</span>
+<span class="nc" id="L90">		System.out.print(&quot;StdVar: &quot; + var + &quot;, &quot;);</span>
+<span class="nc" id="L91">		System.out.print(&quot;Min: &quot; + loBest + &quot;, &quot;);</span>
+<span class="nc" id="L92">		System.out.print(&quot;Max: &quot; + hiBest + &quot;, &quot;);</span>
+<span class="nc" id="L93">		System.out.print(&quot;ms/m: &quot; + moveTime);</span>
+<span class="nc" id="L94">		System.out.println();</span>
+<span class="nc" id="L95">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
