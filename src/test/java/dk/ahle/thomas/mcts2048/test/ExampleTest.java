@@ -160,4 +160,91 @@ public class ExampleTest {
     public void testDisabled() {
         fail("这个测试不应该运行");
     }
+
+    /**
+     * Mock演示测试用例
+     */
+    @Test
+    @DisplayName("Mock演示：模拟Measure接口并验证调用")
+    public void testMockMeasureDemo() {
+        // 1. 创建Mock对象
+        dk.ahle.thomas.mcts2048.measure.Measure mockMeasure = 
+            mock(dk.ahle.thomas.mcts2048.measure.Measure.class);
+        
+        // 2. 定义Mock行为：当调用score方法时返回固定值
+        when(mockMeasure.score(any(Board.class))).thenReturn(100.0);
+        
+        // 3. 使用Mock对象
+        Board testBoard = new Board();
+        double score = mockMeasure.score(testBoard);
+        
+        // 4. 验证返回值
+        assertEquals(100.0, score, "Mock返回的分数应该是100.0");
+        
+        // 5. 验证方法被调用了一次
+        verify(mockMeasure, times(1)).score(any(Board.class));
+        
+        // 6. 可以多次调用并验证
+        mockMeasure.score(testBoard);
+        mockMeasure.score(testBoard);
+        
+        // 7. 验证总共被调用了3次
+        verify(mockMeasure, times(3)).score(any(Board.class));
+    }
+
+    /**
+     * Mock演示测试用例
+     */
+    @Test
+    @DisplayName("Mock演示：模拟多次调用返回不同值")
+    public void testMockWithMultipleReturnValues() {
+        // 创建Mock对象
+        dk.ahle.thomas.mcts2048.measure.Measure mockMeasure = 
+            mock(dk.ahle.thomas.mcts2048.measure.Measure.class);
+        
+        // 定义多次调用的返回值
+        when(mockMeasure.score(any(Board.class)))
+            .thenReturn(100.0)  // 第一次调用返回100.0
+            .thenReturn(200.0)  // 第二次调用返回200.0
+            .thenReturn(300.0); // 第三次调用返回300.0
+        
+        Board testBoard = new Board();
+        
+        // 验证不同的返回值
+        assertEquals(100.0, mockMeasure.score(testBoard));
+        assertEquals(200.0, mockMeasure.score(testBoard));
+        assertEquals(300.0, mockMeasure.score(testBoard));
+        
+        // 验证被调用了3次
+        verify(mockMeasure, times(3)).score(any(Board.class));
+    }
+
+    /**
+     * Mock演示测试用例
+     */
+    @Test
+    @DisplayName("Mock演示：验证特定参数的方法调用")
+    public void testMockWithSpecificArgument() {
+        // 创建Mock对象
+        dk.ahle.thomas.mcts2048.measure.Measure mockMeasure = 
+            mock(dk.ahle.thomas.mcts2048.measure.Measure.class);
+        
+        // 定义Mock行为
+        when(mockMeasure.score(any(Board.class))).thenReturn(50.0);
+        
+        // 创建特定的Board对象
+        Board specificBoard = new Board();
+        
+        // 调用方法
+        double score = mockMeasure.score(specificBoard);
+        
+        // 验证返回值
+        assertEquals(50.0, score);
+        
+        // 验证使用特定参数调用
+        verify(mockMeasure).score(specificBoard);
+        
+        // 验证没有其他交互
+        verifyNoMoreInteractions(mockMeasure);
+    }
 }
